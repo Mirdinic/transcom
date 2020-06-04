@@ -1,0 +1,126 @@
+    <div class="main-panel">
+      <!-- Navbar -->
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title">Список Задач</h4>
+
+          </div>
+          <table mat-table [dataSource]="dataSource">
+            <!-- цвет приоритета -->
+            <ng-container matColumnDef="color">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let task" [style.background-color]="getPriorityColor(task)"></td>
+            </ng-container>
+            <!-- нумерация -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let index=index;">{{index+1}}</td>
+            </ng-container>
+            <!-- название задачи -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Название</th>
+              <td mat-cell *matCellDef="let task" [class.completed]="task.completed">{{task.title}}</td>
+              <!-- дата выполнения -->
+            </ng-container>
+            <ng-container matColumnDef="">
+              <th mat-header-cell *matHeaderCellDef>Срок</th>
+              <td mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}">
+                {{task.date | date: "short"}}
+              </td>
+              <!-- приоритет -->
+            </ng-container>
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Приоритет</th>
+              <td mat-cell *matCellDef="let task" 
+              [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null}"
+              >{{task.priority ? task.priority.title : "Без приоритета"}}</td>
+            </ng-container>
+
+            <!-- category -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Категория</th>
+              <td mat-cell *matCellDef="let task" 
+              [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null, 'link': !task.completed && task.category}"
+              >{{task.category ? task.category.title : "Без категории"}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>2020, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- <div class="card-body table-responsive">
+      <table class="table table-hover">
+        <thead class="text-warning">
+          <tr><th>#</th>
+          <th>Название</th>
+          <th>Категория</th>
+          <th>Приоритет</th>
+          <th>Дата</th>
+          <th>Статус</th>
+          
+        </tr></thead>
+        <tbody>
+          <tr *ngFor="let task of tasks; let i = index" [class.completed]='task.completed'>
+            <td>{{i+1}}</td>
+            <td>{{task.title}}</td>
+            <td [class.novalue]="task.category == null">{{task.category !=null ? task.category.title : 'без категории' }}</td>
+            <td [class.novalue]="task.priority == null">{{task.priority !=null ? task.priority.title : 'без приоритета'}}</td>
+            <td [class.novalue]="task.date == null">{{task.date !=null ? (task.date | date: 'short') : 'без даты'}}</td>
+            <td>
+              <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" 
+              type="checkbox" value="" 
+              [checked]="task.completed"
+              (click)="toggleTaskCompleted(task)"
+              >
+              <span class="form-check-sign">
+                <span class="check"></span>
+              </span>
+            </label>
+          </div>
+        </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
