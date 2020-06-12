@@ -1,0 +1,18 @@
+<div class="row">
+        <div class="col-10 text-left align-self-top">
+            <p class="navbar-brand">{{categoryName}}</p>
+            <p class="link navbar-brand" (click)="onToggleStat()" *ngIf="showStat">Скрыть Статистику</p>
+            <p class="link navbar-brand" (click)="onToggleStat()" *ngIf="!showStat">Показать Статистику</p>
+        </div>
+        <div class="col-1 text-right align-self-top">
+            <button mat-icon-button class="header-icon" (click)="showSettings()">
+                <mat-icon>settings</mat-icon>
+            </button>
+        </div>
+        <div class="col-1 text-right align-self-top">
+            <button mat-icon-button class="header-icon">
+                <mat-icon>help</mat-icon>
+            </button>
+        </div>
+</div>
+

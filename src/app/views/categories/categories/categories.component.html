@@ -4,17 +4,117 @@
 
       Tip 2: you can also add an image using data-image tag
   -->
-    <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-        Creative Tim
-      </a></div>
+    <div class="logo">
+        <span class="nav-title">Категории</span>
+        <span class="add-icon-area">
+          <button mat-icon-button class="add-icon" (click)="openAddDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </span>
+    </div>
+
+  
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li [class.active]="category === selectedCategory" *ngFor = "let category of categories" (click)="showTaskByCategory(category)" class="nav-item pointer">
-          <a class="nav-link">
-            <p>{{category.title}}</p>
+
+
+     
+    <div class="search-category-area" style="margin: 0
+     30px">
+      <mat-form-field class="example-full-width">
+        <input
+        #inputSearchCategory
+
+        (keydown.escape)="searchCategoryTitle=''; search()"
+        (keyup)="search()"
+        [(ngModel)]="searchCategoryTitle"
+        matInput
+        maxlength="200"
+        placeholder="Поиск категорий"
+        />
+        <button
+          (click)="searchCategoryTitle='';search()"
+          *ngIf="inputSearchCategory.value.trim().length>0" aria-label="Clear"
+          class="search-category-button size25 gray"
+          mat-button
+          mat-icon-button
+          matSuffix>
+        <mat-icon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+        
+         <li 
+        [class.active]="!selectedCategory" 
+        (click)="showTaskByCategory(null)" 
+        class="nav-item category">
+          <a class="nav-link pointer">
+            <span class="all-category-title">Все</span>
+            <span class="uncompleted-count">{{uncompletedTotal}}</span>
+
+
           </a>
         </li>
-       
+        <div *ngIf="categories.length === 0"><p class="not-found">Ничего не найдено</p></div>
+
+        <div class="line"></div>
+
+        <!-- <li 
+        [class.active]="category === selectedCategory" 
+        *ngFor = "let category of categories; let index = index" 
+        (click)="showTaskByCategory(category)" 
+        (mouseleave)="showEditIcon(null)"
+        (mouseenter)="showEditIcon(index)"
+        
+
+    
+        class="nav-item pointer">
+
+          <a class="nav-link">
+            <span class="category-title">{{category.title}}</span>
+            <span class="edit-category-icon-area">
+
+              <mat-icon
+              *ngIf="indexMouseMove===index"
+              (click)="$event.stopPropagation(); openEditDialog(category)"
+              class="edit-category-icon"
+              >
+              edit
+              </mat-icon>
+            </span>
+          </a>
+          
+        </li> -->
+
+
+        <li 
+        [class.active]="mapValue.key === selectedCategory" 
+        *ngFor = "let mapValue of selectedCategoryMap | keyvalue; let index = index" 
+        (click)="showTaskByCategory(mapValue.key)" 
+        (mouseleave)="showEditIcon(null)"
+        (mouseenter)="showEditIcon(index)"
+        
+
+    
+        class="nav-item pointer">
+
+          <a class="nav-link">
+            <span class="category-title">{{mapValue.key.title}}</span>
+            <span  class="uncompleted-count">{{mapValue.value}}</span>
+            <span class="edit-category-icon-area">
+
+              <mat-icon
+              *ngIf="indexMouseMove===index"
+              (click)="$event.stopPropagation(); openEditDialog(mapValue.key)"
+              class="edit-category-icon"
+              >
+              edit
+              </mat-icon>
+            </span>
+          </a>
+          
+        </li>
       </ul>
+      
     </div>
   <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-1.jpg) "></div></div>

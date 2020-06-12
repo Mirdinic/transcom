@@ -1,0 +1,12 @@
+
+.header-icon{
+    cursor: pointer;
+    margin-right: 40px;
+    display: inline-block !important;
+}
+.settings button{
+    margin-right: 0;
+}
+.navbar-brand{
+    margin-left: 50px !important;
+}
